@@ -88,22 +88,24 @@ public class Window {
 		GL11.glFrustum(-1, 1, -1, 1, 1, 20);
 
 		ArrayList<Vector3f> points = PLY_Reader
-				.getTriangles("/media/laurin/Laurin Festplatte/Blender/Models/plane.ply");
+				.getTriangles("/media/laurin/Laurin Festplatte/Blender/Models/box.ply");
 
-		ArrayList<int[]> indexes = PLY_Reader.getIndexes("/media/laurin/Laurin Festplatte/Blender/Models/plane.ply");
+		ArrayList<int[]> indexes = PLY_Reader.getIndexes("/media/laurin/Laurin Festplatte/Blender/Models/box.ply");
 
 		ArrayList<Mesh> meshes = new ArrayList<>();
 		for (int i = 0; i < 2; i++) {
 			meshes.add(new Mesh(new Vector3f(-i * 4, 0, 0), points, indexes, true));
 		}
-		for (Vector3f vec : meshes.get(1).collisionBox()) {
-			System.err.println(vec);
-		}
+//		for (Vector3f vec : meshes.get(1).collisionBox()) {
+//			System.err.println(vec);
+//		}
 //		System.err.println(meshes.get(1).collisionBox()[0]);
 //		System.out.println(meshes.get(0).isColliding(meshes.get(1).collisionBox()));
 
-
-		Mesh plane = new Mesh(new Vector3f(-2, 0, 0),
+		Mesh box1 = new Mesh(new Vector3f(0,0,0), points, indexes, true);
+		Mesh box2 = new Mesh(new Vector3f(0,0,0), points, indexes, true);
+		
+		Mesh plane = new Mesh(new Vector3f(0, 0, 0),
 				PLY_Reader.getTriangles("/media/laurin/Laurin Festplatte/Blender/Models/new.ply"),
 				PLY_Reader.getIndexes("/media/laurin/Laurin Festplatte/Blender/Models/new.ply"), true);
 
@@ -123,7 +125,16 @@ public class Window {
 			for (Mesh mesh2 : meshes) {
 				mesh2.draw();
 			}
+			System.out.println(meshes.get(0).isColliding(meshes.get(1).collisionBox()));
 			meshes.get(1).addToMeshOrigin(0.001f, 0, 0);
+//			meshes.get(1).collisionBox();
+			
+//			box1.draw();
+//			box2.draw();
+//			box1.collisionBox();
+//			box1.isColliding(box2.collisionBox());
+			
+//			box1.addToMeshOrigin(0.001f, 0, 0);
 			
 //			plane.draw();
 

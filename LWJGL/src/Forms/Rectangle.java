@@ -12,8 +12,6 @@ import All.Window;
 
 public class Rectangle extends Form {
 	
-	BufferedImage image = TextureLoader.loadImage("/media/laurin/Laurin Festplatte/Programmieren/Java/Workbench/LWJGL/resources/test.png");
-	int textureID = TextureLoader.loadTexture(image);
 
 	public Rectangle(Vector3f[] points) {
 		super(points);

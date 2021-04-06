@@ -1,6 +1,7 @@
 package Forms;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import org.joml.Vector3f;
@@ -55,16 +56,24 @@ public class Mesh {
 
 	public Vector3f[] collisionBox() {
 
-		Vector3f max, min, temp;
-		max = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
-		min = new Vector3f(Float.MIN_VALUE, Float.MIN_VALUE, Float.MIN_VALUE);
-
+		Vector3f max, min, temp, origin;
+		max = new Vector3f(-Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE);
+		min = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+		
 		for (Rectangle rectangle : allRectangles) {
+			origin = rectangle.getOrigin();
 			for (Vector3f vector : rectangle.points) {
-				temp = vector.add(rectangle.origin);
+				temp = new Vector3f(origin.x + vector.x, origin.y + vector.y, origin.z + vector.z);
 				min.set(Math.min(min.x, temp.x), Math.min(min.y, temp.y), Math.min(min.z, temp.z));
 				max.set(Math.max(max.x, temp.x), Math.max(max.y, temp.y), Math.max(max.z, temp.z));
-				temp.add(rectangle.origin.negate());
+			}
+		}
+		for (Triangle triangle : allTriangles) {
+			origin = triangle.getOrigin();
+			for (Vector3f vector : triangle.points) {
+				temp = new Vector3f(origin.x + vector.x, origin.y + vector.y, origin.z + vector.z);
+				min.set(Math.min(min.x, temp.x), Math.min(min.y, temp.y), Math.min(min.z, temp.z));
+				max.set(Math.max(max.x, temp.x), Math.max(max.y, temp.y), Math.max(max.z, temp.z));
 			}
 		}
 		
@@ -73,6 +82,8 @@ public class Mesh {
 	}
 
 	public boolean isColliding(Vector3f[] otherCollisionBox) {
+		
+//		System.out.println(collisionBox()[0].x);
 		
 		if(collisionBox()[0].x <= otherCollisionBox[0].x && collisionBox()[1].x >= otherCollisionBox[1].x && 
 				collisionBox()[0].y <= otherCollisionBox[0].y && collisionBox()[1].y >= otherCollisionBox[1].y && 
