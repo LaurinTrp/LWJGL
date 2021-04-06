@@ -56,8 +56,8 @@ public class Mesh {
 	public Vector3f[] collisionBox() {
 
 		Vector3f max, min, temp;
-		max = new Vector3f(Float.MIN_VALUE, Float.MIN_VALUE, Float.MIN_NORMAL);
-		min = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+		max = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+		min = new Vector3f(Float.MIN_VALUE, Float.MIN_VALUE, Float.MIN_VALUE);
 
 		for (Rectangle rectangle : allRectangles) {
 			for (Vector3f vector : rectangle.points) {
