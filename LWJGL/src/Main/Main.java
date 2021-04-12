@@ -1,4 +1,6 @@
-package All;
+package Main;
+
+import Main.GUI.Window;
 
 public class Main {
 	
@@ -8,5 +10,9 @@ public class Main {
 		window.create();
 		
 	}
+	
+	
+	
+	
 	
 }

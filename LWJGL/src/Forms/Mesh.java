@@ -54,7 +54,7 @@ public class Mesh {
 		}
 	}
 
-	public Vector3f[] collisionBox() {
+	public float[] collisionBox() {
 
 		Vector3f max, min, temp, origin;
 		max = new Vector3f(-Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE);
@@ -78,16 +78,19 @@ public class Mesh {
 		}
 		
 		
-		return new Vector3f[] { min, max };
+		return new float[] { min.x, max.x, min.y, max.y, min.z, max.z };
 	}
 
-	public boolean isColliding(Vector3f[] otherCollisionBox) {
+	public boolean isColliding(float[] otherCollisionBox) {
 		
-//		System.out.println(collisionBox()[0].x);
+		float[] thisCollisionBox = collisionBox();
 		
-		if(collisionBox()[0].x <= otherCollisionBox[0].x && collisionBox()[1].x >= otherCollisionBox[1].x && 
-				collisionBox()[0].y <= otherCollisionBox[0].y && collisionBox()[1].y >= otherCollisionBox[1].y && 
-				collisionBox()[0].z <= otherCollisionBox[0].z && collisionBox()[1].z >= otherCollisionBox[1].z) {
+		if ((otherCollisionBox[0] >= thisCollisionBox[0] && otherCollisionBox[0] <= thisCollisionBox[1]
+				|| otherCollisionBox[1] >= thisCollisionBox[0] && otherCollisionBox[0] <= thisCollisionBox[1])
+				&& (otherCollisionBox[2] >= thisCollisionBox[2] && otherCollisionBox[2] <= thisCollisionBox[3]
+						|| otherCollisionBox[3] >= thisCollisionBox[2] && otherCollisionBox[2] <= thisCollisionBox[3])
+				&& (otherCollisionBox[4] >= thisCollisionBox[4] && otherCollisionBox[4] <= thisCollisionBox[5]
+						|| otherCollisionBox[5] >= thisCollisionBox[4] && otherCollisionBox[4] <= thisCollisionBox[5])) {
 			return true;
 		}
 		

@@ -8,7 +8,7 @@ import org.lwjgl.openvr.Texture;
 
 import All.ColorFloat;
 import All.TextureLoader;
-import All.Window;
+import Main.GUI.Window;
 
 public class Rectangle extends Form {
 	

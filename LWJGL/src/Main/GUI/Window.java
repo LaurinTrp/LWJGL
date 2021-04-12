@@ -1,4 +1,4 @@
-package All;
+package Main.GUI;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -7,6 +7,8 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import All.Camera;
+import All.PLY_Reader;
 import Forms.Mesh;
 import Forms.Rectangle;
 import Forms.Triangle;
@@ -94,7 +96,7 @@ public class Window {
 
 		ArrayList<Mesh> meshes = new ArrayList<>();
 		for (int i = 0; i < 2; i++) {
-			meshes.add(new Mesh(new Vector3f(-i * 4, 0, 0), points, indexes, true));
+			meshes.add(new Mesh(new Vector3f(-i * 4, i, i), points, indexes, true));
 		}
 //		for (Vector3f vec : meshes.get(1).collisionBox()) {
 //			System.err.println(vec);
@@ -112,6 +114,7 @@ public class Window {
 		plane.collisionBox();
 
 		Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0));
+		
 		while (true) {
 			GL11.glLoadIdentity();
 			GL11.glMatrixMode(GL11.GL_PROJECTION_MATRIX);
@@ -125,8 +128,9 @@ public class Window {
 			for (Mesh mesh2 : meshes) {
 				mesh2.draw();
 			}
-			System.out.println(meshes.get(0).isColliding(meshes.get(1).collisionBox()));
-			meshes.get(1).addToMeshOrigin(0.001f, 0, 0);
+			if(!meshes.get(0).isColliding(meshes.get(1).collisionBox())) {
+				meshes.get(1).addToMeshOrigin(0.001f, 0, 0);
+			}
 //			meshes.get(1).collisionBox();
 			
 //			box1.draw();
